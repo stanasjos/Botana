@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Botana.MainPage"
+             x:Name="Page"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Botana"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                              Dark={StaticResource DarkBgColor}}">
+
+    <!-- Мягкое локальное свечение только для карточек на этой странице -->
+    <ContentPage.Resources>
+        <Style x:Key="CardStyleSoft" TargetType="Border" BasedOn="{StaticResource CardStyle}">
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <!-- Очень лёгкая подсветка: ~1–2 мм по краям -->
+                    <Shadow Brush="{StaticResource GlowBrush}" Opacity="0.12" Radius="4" Offset="0,1"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="20">
+
+            <Label Text="Build automations faster."
+                   FontSize="26"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}"/>
+
+            <Label Text="Marketplace for business automations and integrations for SMBs"
+                   FontSize="16" Opacity="0.85"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                Dark={StaticResource DarkTextSecondary}}"/>
+
+            <!-- Search -->
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
+                <Entry x:Name="SearchEntry"
+                       Style="{StaticResource SolidEntry}"
+                       Placeholder="Search automations"
+                       ClearButtonVisibility="WhileEditing"
+                       TextChanged="OnSearchTextChanged" />
+
+                <Button Grid.Column="1"
+                        Text="Search"
+                        Style="{StaticResource PrimaryButton}"
+                        Clicked="OnSearchClicked" />
+            </Grid>
+
+            <Label Text="Featured Automations"
+                   FontSize="20" FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}" />
+
+            <!-- Cards -->
+            <CollectionView ItemsSource="{Binding Workflows}" SelectionMode="Single">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2"
+                                     VerticalItemSpacing="12" HorizontalItemSpacing="12"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:WorkflowModel">
+                        <!-- Используем мягкую карточку -->
+                        <Border Style="{StaticResource CardStyleSoft}">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding Title}"
+                                       FontAttributes="Bold"
+                                       FontSize="16"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                                Dark={StaticResource DarkTextPrimary}}"/>
+
+                                <Label Text="{Binding Description}"
+                                       FontSize="13"
+                                       Opacity="0.85"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                                Dark={StaticResource DarkTextSecondary}}"/>
+
+                                <!-- Кнопка открывает диалог, затем ссылку (команда во ViewModel) -->
+                                <Button Text="Use template"
+                                        Style="{StaticResource UseTemplateButton}"
+                                        Command="{Binding Source={x:Reference Page}, Path=BindingContext.OpenTemplateCommand}"
+                                        CommandParameter="{Binding}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

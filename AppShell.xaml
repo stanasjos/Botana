@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    x:Class="Botana.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Botana"
+    Title="Botana">
+
+    <!-- Верхняя панель -->
+    <Shell.TitleView>
+        <Grid Padding="10"
+              HeightRequest="50"
+              ColumnDefinitions="*,Auto"
+              BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                               Dark={StaticResource DarkBgColor}}">
+
+            <!-- слева: логотип + название -->
+            <HorizontalStackLayout Spacing="10"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start">
+                <Image Source="{AppThemeBinding Light=eco_1.png, Dark=eco_1.png}"
+                       WidthRequest="22" HeightRequest="22"
+                       Aspect="AspectFit" Margin="0,0,6,0">
+                    <Image.Shadow>
+                        <Shadow Brush="{StaticResource GlowBrush}"
+                                Opacity="0.55" Radius="18" Offset="0,6"/>
+                    </Image.Shadow>
+                </Image>
+
+                <Label Text="BOTANA" FontSize="20"
+                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}"/>
+            </HorizontalStackLayout>
+
+            <!-- справа: профиль + переключатель темы -->
+            <HorizontalStackLayout Grid.Column="1"
+                                   Spacing="12"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="End"
+                                   Margin="0,0,8,0">
+
+                <ImageButton
+                    Source="{AppThemeBinding Light=person_black.png, Dark=person_white.png}"
+                    WidthRequest="28" HeightRequest="28"
+                    Aspect="AspectFit" BackgroundColor="Transparent"
+                    Margin="0,0,8,0"
+                    Clicked="OnProfileTapped" />
+
+                <ImageButton x:Name="ThemeButton"
+                    WidthRequest="32" HeightRequest="32"
+                    Padding="6" CornerRadius="16"
+                    BackgroundColor="{AppThemeBinding Light=#1A000000, Dark=#1AFFFFFF}"
+                    Aspect="AspectFit"
+                    Clicked="OnThemeButtonClicked"
+                    Source="{AppThemeBinding Light=light_mode.png, Dark=dark_mode.png}"/>
+            </HorizontalStackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+    <!-- Вкладки -->
+    <TabBar>
+        <Tab Title="Automations">
+            <ShellContent Route="MainPage"
+                          ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+
+        <Tab Title="Explore">
+            <ShellContent Route="ExplorePage"
+                          ContentTemplate="{DataTemplate local:ExplorePage}" />
+        </Tab>
+
+        <Tab Title="Pricing">
+            <ShellContent Route="PricingPage"
+                          ContentTemplate="{DataTemplate local:PricingPage}" />
+        </Tab>
+    </TabBar>
+</Shell>

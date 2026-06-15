@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Botana.ExplorePage"
+             x:Name="Page"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:data="clr-namespace:Botana.Data"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                               Dark={StaticResource DarkBgColor}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!-- Заголовок -->
+            <Label Text="Explore automations"
+                   FontSize="26"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                 Dark={StaticResource DarkTextPrimary}}"/>
+
+            <!-- Поиск -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Entry x:Name="SearchEntry"
+                       Style="{StaticResource SolidEntry}"
+                       Placeholder="Search automations…"
+                       ClearButtonVisibility="WhileEditing"/>
+                <Button Grid.Column="1"
+                        Text="Search"
+                        Style="{StaticResource PrimaryButton}"
+                        Clicked="OnSearchClicked"/>
+            </Grid>
+
+            <!-- Категории (чипы/карточки) -->
+            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Start" AlignItems="Start">
+
+                <Border x:Name="CatAll"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="all"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="All" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatFinance"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="finance"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="Finance" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatHR"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="hr"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="HR" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatProcurement"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="procurement"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="Procurement" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatCustomer"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="customer"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="Customer Service" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatDocs"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="documents"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="Document Management" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatMarketing"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="marketing"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="Marketing" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <!-- Платформы / идеи -->
+                <Border x:Name="CatPowerAutomate"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="power-automate"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="Power Automate" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatAIBuilder"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="ai-builder"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="AI Builder" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatN8n"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="n8n"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="n8n Agent" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Border x:Name="CatMake"
+                        Style="{StaticResource CardOutlineAlways}"
+                        AutomationId="make"
+                        Padding="12" Margin="0,8,12,0">
+                    <Label Text="Make" FontSize="14"/>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoryTapped"/>
+                    </Border.GestureRecognizers>
+                </Border>
+            </FlexLayout>
+
+            <!-- Результаты (публичные шаблоны) -->
+            <CollectionView ItemsSource="{Binding PublicItems}"
+                            Margin="0,12,0,24"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2"
+                                     VerticalItemSpacing="12" HorizontalItemSpacing="12"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="data:Automation">
+                        <Border Style="{StaticResource CardOutlineAlways}">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding Description}" FontSize="13" Opacity="0.85"/>
+
+                                <Button Text="Use template"
+                                        Style="{StaticResource UseTemplateButton}"
+                                        Command="{Binding Source={x:Reference Page}, Path=OpenTemplateCommand}"
+                                        CommandParameter="{Binding}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

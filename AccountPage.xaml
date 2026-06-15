@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Botana.AccountPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Account"
+    BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                     Dark={StaticResource DarkBgColor}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <Label Text="My account" FontSize="22"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                            Dark={StaticResource DarkTextPrimary}}" />
+
+            <Label Text="Signed in as"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                            Dark={StaticResource DarkTextSecondary}}" />
+
+            <Label x:Name="EmailLabel"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                            Dark={StaticResource DarkTextPrimary}}" />
+
+            <!-- стеклянные «пилюли» как на Automations -->
+            <VerticalStackLayout Spacing="10" Margin="0,8,0,0">
+
+                <Button Text="Settings"
+                        Style="{StaticResource UseTemplateButton}"
+                        HorizontalOptions="Fill"
+                        Clicked="OnSettingsClicked"/>
+
+                <Button Text="My automations"
+                        Style="{StaticResource UseTemplateButton}"
+                        HorizontalOptions="Fill"
+                        Clicked="OnMyAutomationsClicked"/>
+
+                <Button Text="Upload automation"
+                        Style="{StaticResource UseTemplateButton}"
+                        HorizontalOptions="Fill"
+                        IsVisible="False"
+                        Clicked="OnUploadClicked"/>
+
+                <Button x:Name="AdminButton"
+                        Text="Admin panel"
+                        Style="{StaticResource UseTemplateButton}"
+                        HorizontalOptions="Fill"
+                        IsVisible="False"
+                        Clicked="OnOpenAdminClicked"/>
+
+                <Button Text="Logout"
+                        Style="{StaticResource UseTemplateButton}"
+                        HorizontalOptions="Fill"
+                        Clicked="OnLogoutClicked"/>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

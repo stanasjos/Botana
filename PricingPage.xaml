@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Botana.PricingPage"
+             Title="Pricing"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor}, Dark={StaticResource DarkBgColor}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <!-- Заголовок -->
+            <Label Text="Choose your plan"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}" />
+            <Label Text="Simple, transparent pricing."
+                   Style="{StaticResource SecondaryText}" />
+
+            <!-- 3 колонки с карточками -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="16">
+                <!-- FREE -->
+                <Border x:Name="FreeCard"
+                        Grid.Column="0"
+                        Style="{StaticResource CardStyle}"
+                        MinimumHeightRequest="260">
+                    <!-- 3 строки: заголовок / фичи / кнопка -->
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <!-- Заголовок -->
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Free"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                            Dark={StaticResource DarkTextPrimary}}" />
+                            <Label Text="$0 / month"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}" />
+                        </VerticalStackLayout>
+
+                        <!-- Фичи -->
+                        <VerticalStackLayout Grid.Row="1" Spacing="6">
+                            <Label Text="• 20 runs / month"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondac:\users\steinanastasia\source\repos\botana\pricingpage.xaml.cs}}"/>
+                            <Label Text="• Community support"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}"/>
+                        </VerticalStackLayout>
+
+                        <!-- Кнопка -->
+                        <Button Grid.Row="2"
+                                Text="Start for free"
+                                Style="{StaticResource PrimaryButton}"
+                                Clicked="OnCardTapped" />
+                    </Grid>
+                </Border>
+
+                <!-- PRO -->
+                <Border x:Name="ProCard"
+                        Grid.Column="1"
+                        Style="{StaticResource CardStyle}"
+                        MinimumHeightRequest="260">
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Pro"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                            Dark={StaticResource DarkTextPrimary}}" />
+                            <Label Text="$25 / month"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Spacing="6">
+                            <Label Text="• 1,000 runs / month"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}"/>
+                            <Label Text="• Priority support"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}"/>
+                            <Label Text="• Early features"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}"/>
+                        </VerticalStackLayout>
+
+                        <Button Grid.Row="2"
+                                Text="Buy Pro"
+                                Style="{StaticResource PrimaryButton}"
+                                Clicked="OnCardTapped" />
+                    </Grid>
+                </Border>
+
+                <!-- TEAM -->
+                <Border x:Name="TeamCard"
+                        Grid.Column="2"
+                        Style="{StaticResource CardStyle}"
+                        MinimumHeightRequest="260">
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Team"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                            Dark={StaticResource DarkTextPrimary}}" />
+                            <Label Text="Contact sales"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Row="1" Spacing="6">
+                            <Label Text="• Unlimited runs"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}"/>
+                            <Label Text="• SSO, roles &amp; audit"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}"/>
+                            <Label Text="• SLA &amp; success manager"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                                            Dark={StaticResource DarkTextSecondary}}"/>
+                        </VerticalStackLayout>
+
+                        <Button Grid.Row="2"
+                                Text="Contact sales"
+                                Style="{StaticResource PrimaryButton}"
+                                Clicked="OnCardTapped" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

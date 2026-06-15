@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Botana.AutomationSettingsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Settings"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                              Dark={StaticResource DarkBgColor}}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Priority="0"
+                     IconImageSource="{AppThemeBinding Light=arrow_back_dark.png, Dark=arrow_back_light.png}"
+                     AutomationProperties.Name="Back"
+                     Clicked="OnBackClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="14">
+
+            <Label Text="Settings" FontSize="22"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                            Dark={StaticResource DarkTextPrimary}}"/>
+
+            <Entry x:Name="NameEntry"
+                   Placeholder="Name"
+                   Style="{StaticResource SolidEntry}" />
+
+            <Entry x:Name="UrlEntry"
+                   Placeholder="https://…"
+                   Style="{StaticResource SolidEntry}"
+                   Keyboard="Url"
+                   ClearButtonVisibility="WhileEditing" />
+
+            <Editor x:Name="DescEditor"
+                    Placeholder="Short description"
+                    AutoSize="TextChanges"
+                    HeightRequest="100" />
+
+            <!-- NEW: Category picker -->
+            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                <Label Text="Category" VerticalOptions="Center"
+                       Style="{StaticResource SecondaryText}" />
+                <Picker x:Name="CategoryPicker" Title="Choose category" WidthRequest="220">
+                    <Picker.Items>
+                        <x:String>general</x:String>
+                        <x:String>finance</x:String>
+                        <x:String>hr</x:String>
+                        <x:String>procurement</x:String>
+                        <x:String>customer</x:String>
+                        <x:String>documents</x:String>
+                        <x:String>marketing</x:String>
+                        <x:String>power-automate</x:String>
+                        <x:String>ai-builder</x:String>
+                        <x:String>n8n</x:String>
+                        <x:String>make</x:String>
+                    </Picker.Items>
+                </Picker>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                <Label Text="Publish to catalog" VerticalOptions="Center"
+                       Style="{StaticResource SecondaryText}" />
+                <Switch x:Name="PublicSwitch"/>
+            </HorizontalStackLayout>
+
+            <Button Text="Open link"
+                    Style="{StaticResource UseTemplateButton}"
+                    Clicked="OnOpenClicked"/>
+
+            <Button Text="Save"
+                    Style="{StaticResource PrimaryButton}"
+                    Clicked="OnSaveClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

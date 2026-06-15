@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Botana.AdminPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Botana"
+    x:Name="Page"
+    Title="Admin"
+    BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                     Dark={StaticResource DarkBgColor}}">
+
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="*,Auto" Padding="10">
+            <Label Text="Admin Dashboard"
+               VerticalOptions="Center"
+               FontSize="20"
+               FontAttributes="None"
+               TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                        Dark={StaticResource DarkTextPrimary}}" />
+
+            <ImageButton Grid.Column="1"
+                     Source="{AppThemeBinding Light=close_light.png, Dark=close_dark.png}"
+                     WidthRequest="32" HeightRequest="32" Padding="6"
+                     BackgroundColor="{AppThemeBinding Light={StaticResource IconBgLight},
+                                                      Dark={StaticResource IconBgDark}}"
+                     Aspect="AspectFit"
+                     Clicked="OnAdminCloseClicked"/>
+        </Grid>
+    </Shell.TitleView>
+
+    <!-- спрятать стандартную стрелку назад -->
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False"/>
+    </Shell.BackButtonBehavior>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <Label Text="Admin" FontSize="22" FontAttributes="None"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                            Dark={StaticResource DarkTextPrimary}}" />
+
+            <!-- Карточки со статистикой -->
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12">
+                <Border Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout>
+                        <Label Text="Total users" />
+                        <Label Text="{Binding StatsUsers}" FontSize="20" FontAttributes="None"/>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout>
+                        <Label Text="Sellers" />
+                        <Label Text="{Binding StatsVendors}" FontSize="20" FontAttributes="None"/>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout>
+                        <Label Text="Admins" />
+                        <Label Text="{Binding StatsAdmins}" FontSize="20" FontAttributes="None"/>
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="3" Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout>
+                        <Label Text="Pending review" />
+                        <Label Text="{Binding StatsPending}" FontSize="20" FontAttributes="None"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Поиск -->
+            <Entry Placeholder="Search by title, description, seller" />
+
+            <!-- Список автоматизаций -->
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:AutomationItem">
+                        <Border Style="{StaticResource CardStyle}">
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16"/>
+                                <Label Text="{Binding Description}" FontSize="13" Opacity="0.85"/>
+
+                                <HorizontalStackLayout Spacing="8">
+                                    <Button Text="Details"
+                                            Command="{Binding BindingContext.OpenDetailsCommand, Source={x:Reference Page}}"
+                                            CommandParameter="{Binding Id}"/>
+                                    <Button Text="Hide"
+                                            Command="{Binding BindingContext.HideCommand, Source={x:Reference Page}}"
+                                            CommandParameter="{Binding Id}"/>
+                                    <Button Text="View on site"
+                                            Command="{Binding BindingContext.OpenSiteCommand, Source={x:Reference Page}}"
+                                            CommandParameter="{Binding Id}"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

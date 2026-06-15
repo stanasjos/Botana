@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Botana.SettingsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Settings"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                              Dark={StaticResource DarkBgColor}}">
+
+    <!-- Локальный стиль «карточки» с зелёной окантовкой на hover -->
+    <ContentPage.Resources>
+        <Style x:Key="SettingsCard" TargetType="Border">
+            <Setter Property="BackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource LightCardColor},
+                                             Dark={StaticResource DarkCardColor}}"/>
+            <Setter Property="Stroke"
+                    Value="{AppThemeBinding Light={StaticResource LightCardStroke},
+                                             Dark={StaticResource DarkCardStroke}}"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin"  Value="0,6,0,16"/>
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="18"/>
+                </Setter.Value>
+            </Setter>
+            <!-- Glow по краю только при наведении -->
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <Setter.Value>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="Stroke" Value="{StaticResource Primary}"/>
+                                    <Setter Property="Shadow">
+                                        <Setter.Value>
+                                            <Shadow Brush="{StaticResource GlowBrush}"
+                                                    Opacity="0.35" Radius="20" Offset="0,8"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Заголовок секции -->
+        <Style x:Key="SectionTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="Margin" Value="0,10,0,4"/>
+            <Setter Property="TextColor"
+                    Value="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                             Dark={StaticResource DarkTextPrimary}}"/>
+        </Style>
+
+        <!-- Подпись/описание -->
+        <Style x:Key="Hint" TargetType="Label" BasedOn="{StaticResource SecondaryText}">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,8"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <!-- Кнопка Back в апп-баре -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary"
+                     Priority="0"
+                     IconImageSource="{AppThemeBinding Light=arrow_back_dark.png, Dark=arrow_back_light.png}"
+                     AutomationProperties.Name="Back"
+                     Clicked="OnBackClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+
+            <!-- Page title -->
+            <Label Text="Settings" FontSize="22"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}"/>
+
+            <!-- PROFILE -->
+            <Label Text="Profile" Style="{StaticResource SectionTitle}"/>
+            <Label Text="Manage your personal information."
+                   Style="{StaticResource Hint}"/>
+            <Border Style="{StaticResource SettingsCard}">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="10">
+
+                    <Entry x:Name="FirstNameEntry" Placeholder="First name"
+                           Style="{StaticResource SolidEntry}" Grid.Column="0" Grid.Row="0"/>
+                    <Entry x:Name="LastNameEntry"  Placeholder="Last name"
+                           Style="{StaticResource SolidEntry}" Grid.Column="1" Grid.Row="0"/>
+
+                    <Entry x:Name="EmailEntry" Placeholder="E-mail"
+                           Keyboard="Email" Grid.ColumnSpan="2"
+                           Style="{StaticResource SolidEntry}" Grid.Row="1"/>
+
+                    <Entry x:Name="CompanyEntry" Placeholder="Company"
+                           Grid.ColumnSpan="2"
+                           Style="{StaticResource SolidEntry}" Grid.Row="2"/>
+
+                    <Button Text="Save profile"
+                            Style="{StaticResource UseTemplateButton}"
+                            Grid.ColumnSpan="2" Grid.Row="4"
+                            Clicked="OnSaveProfileClicked"/>
+                </Grid>
+            </Border>
+
+            <!-- NOTIFICATIONS -->
+            <Label Text="Notifications" Style="{StaticResource SectionTitle}"/>
+            <Label Text="Choose how you want to be notified."
+                   Style="{StaticResource Hint}"/>
+            <Border Style="{StaticResource SettingsCard}">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" >
+                        <VerticalStackLayout>
+                            <Label Text="E-mail notifications"/>
+                            <Label Text="Receive updates by e-mail." Style="{StaticResource Hint}"/>
+                        </VerticalStackLayout>
+                        <Switch x:Name="EmailNotifSwitch" Grid.Column="1" Toggled="OnEmailNotifToggled"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" >
+                        <VerticalStackLayout>
+                            <Label Text="Workflow alerts"/>
+                            <Label Text="Notify on workflow errors." Style="{StaticResource Hint}"/>
+                        </VerticalStackLayout>
+                        <Switch x:Name="WorkflowAlertsSwitch" Grid.Column="1" Toggled="OnWorkflowAlertsToggled"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto" >
+                        <VerticalStackLayout>
+                            <Label Text="Automatic updates"/>
+                            <Label Text="Update workflows automatically." Style="{StaticResource Hint}"/>
+                        </VerticalStackLayout>
+                        <Switch x:Name="AutoUpdateSwitch" Grid.Column="1" Toggled="OnAutoUpdateToggled"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- SECURITY -->
+            <Label Text="Security" Style="{StaticResource SectionTitle}"/>
+            <Label Text="Protect your account."
+                   Style="{StaticResource Hint}"/>
+            <Border Style="{StaticResource SettingsCard}">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="10">
+                    <Entry x:Name="CurrentPasswordEntry" Placeholder="Current password" IsPassword="True"
+                           Style="{StaticResource SolidEntry}" Grid.ColumnSpan="2" Grid.Row="0"/>
+                    <Entry x:Name="NewPasswordEntry" Placeholder="New password" IsPassword="True"
+                           Style="{StaticResource SolidEntry}" Grid.Column="0" Grid.Row="1"/>
+                    <Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirm password" IsPassword="True"
+                           Style="{StaticResource SolidEntry}" Grid.Column="1" Grid.Row="1"/>
+
+                    <Button Text="Update password"
+                            Style="{StaticResource UseTemplateButton}"
+                            Grid.ColumnSpan="2" Grid.Row="3"
+                            Clicked="OnUpdatePasswordClicked"/>
+                </Grid>
+            </Border>
+
+            <!-- BILLING -->
+            <Label Text="Billing" Style="{StaticResource SectionTitle}"/>
+            <Label Text="Manage plan and payment details."
+                   Style="{StaticResource Hint}"/>
+            <Border Style="{StaticResource SettingsCard}">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="8">
+                    <Label Text="Current plan: Starter" Grid.Row="0"/>
+                    <Button Text="Change plan"
+                            Style="{StaticResource UseTemplateButton}"
+                            Grid.Row="0" Grid.Column="1"
+                            Clicked="OnChangePlanClicked"/>
+
+                    <Label Text="Payment method: not set" Grid.Row="1"/>
+                </Grid>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

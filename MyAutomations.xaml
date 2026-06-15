@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Botana.MyAutomations"
+             x:Name="Page"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:data="clr-namespace:Botana.Data"
+             Title="My Automations"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                              Dark={StaticResource DarkBgColor}}">
+
+    <!-- NEW: Back в правом тулбаре -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+        Order="Primary"
+        Priority="0"
+        IconImageSource="{AppThemeBinding Light=arrow_back_dark.png, Dark=arrow_back_light.png}"
+        AutomationProperties.Name="Back"
+        Clicked="OnBackClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <Label Text="My automations" FontSize="22"
+             TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                          Dark={StaticResource DarkTextPrimary}}"/>
+
+            <!-- NEW: KPI карточки -->
+            <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto" ColumnSpacing="12">
+                <Border Style="{StaticResource KpiCard}">
+                    <VerticalStackLayout>
+                        <Label Text="Active" Style="{StaticResource SecondaryText}"/>
+                        <Label x:Name="KpiActiveLabel" Text="0" FontSize="20"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource KpiCard}">
+                    <VerticalStackLayout>
+                        <Label Text="Total runs" Style="{StaticResource SecondaryText}"/>
+                        <Label x:Name="KpiTotalLabel" Text="0" FontSize="20"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource KpiCard}">
+                    <VerticalStackLayout>
+                        <Label Text="Success rate" Style="{StaticResource SecondaryText}"/>
+                        <Label x:Name="KpiRateLabel" Text="0%" FontSize="20"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- NEW: список автоматизаций -->
+            <CollectionView x:Name="AutomationsView" Margin="0,16,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="data:Automation">
+                        <Border Style="{StaticResource AutomationRow}">
+                            <Grid ColumnDefinitions="*,Auto,Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="12">
+
+                                <Label Grid.Row="0" Grid.Column="0"
+                       Text="{Binding Name}" FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                                Dark={StaticResource DarkTextPrimary}}"/>
+
+                                <Label Grid.Row="1" Grid.Column="0"
+                       Text="{Binding LastRunDisplay}"
+                       Style="{StaticResource SecondaryText}"/>
+
+                                <!-- Pause/Resume без конвертера, через триггер -->
+                                <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                        Text="Pause"
+                        Command="{Binding Source={x:Reference Page}, Path=TogglePauseCommand}"
+                        CommandParameter="{Binding Id}"
+                        Style="{StaticResource UseTemplateButton}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsActive}" Value="False">
+                                            <Setter Property="Text" Value="Resume"/>
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+
+                                <!-- Settings (заглушка) -->
+                                <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                        Text="Settings"
+                        Command="{Binding Source={x:Reference Page}, Path=OpenSettingsCommand}"
+                        CommandParameter="{Binding Id}"
+                        Style="{StaticResource UseTemplateButton}" />
+
+                                <!-- Delete -->
+                                <Button Grid.Row="0" Grid.Column="3" Grid.RowSpan="2"
+                        Text="Delete"
+                        Command="{Binding Source={x:Reference Page}, Path=DeleteCommand}"
+                        CommandParameter="{Binding Id}"
+                        Style="{StaticResource UseTemplateButton}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Upload -->
+            <Button Text="Upload automation"
+              Style="{StaticResource PrimaryButton}"
+              Clicked="OnUploadClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

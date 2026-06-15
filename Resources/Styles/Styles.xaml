@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Текст по умолчанию -->
+    <Style TargetType="Label" ApplyToDerivedTypes="True">
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                     Dark={StaticResource DarkTextPrimary}}"/>
+    </Style>
+
+    <!-- Вторичный текст -->
+    <Style x:Key="SecondaryText" TargetType="Label">
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource LightTextSecondary},
+                                     Dark={StaticResource DarkTextSecondary}}"/>
+    </Style>
+
+    <!-- Поля ввода -->
+    <Style TargetType="Entry" ApplyToDerivedTypes="True">
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                     Dark={StaticResource DarkTextPrimary}}"/>
+        <Setter Property="PlaceholderColor"
+            Value="{AppThemeBinding Light={StaticResource Gray500},
+                                     Dark={StaticResource Gray300}}"/>
+        <Setter Property="BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                     Dark={StaticResource DarkSurfaceColor}}"/>
+    </Style>
+
+    <!-- Поисковая строка -->
+    <Style TargetType="SearchBar" ApplyToDerivedTypes="True">
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                     Dark={StaticResource DarkTextPrimary}}"/>
+        <Setter Property="PlaceholderColor"
+            Value="{AppThemeBinding Light={StaticResource Gray500},
+                                     Dark={StaticResource Gray300}}"/>
+        <Setter Property="BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                     Dark={StaticResource DarkSurfaceColor}}"/>
+    </Style>
+
+    <!-- Карточка -->
+    <Style x:Key="CardStyle" TargetType="Border">
+        <Setter Property="BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource LightCardColor},
+                                     Dark={StaticResource DarkCardColor}}"/>
+        <Setter Property="Stroke"
+            Value="{AppThemeBinding Light={StaticResource LightCardStroke},
+                                     Dark={StaticResource DarkCardStroke}}"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="Margin"  Value="0,10"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource GlowBrush}" Opacity="0.25" Radius="12" Offset="0,3"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="18"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Карточка-«чип»: всегда прозрачная, с круглой зелёной окантовкой -->
+    <Style x:Key="CardOutlineAlways" TargetType="Border">
+        <!-- прозрачный фон -->
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <!-- тонкий контур, как стекло, в зависимости от темы -->
+        <Setter Property="Stroke"
+            Value="{AppThemeBinding Light={StaticResource GlassBorderLight},
+                                     Dark={StaticResource GlassBorderDark}}"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="Margin"  Value="0,8,12,0"/>
+
+        <!-- ВАЖНО: округление! -->
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="18"/>
+            </Setter.Value>
+        </Setter>
+
+        <!-- мягкое постоянное зелёное свечение -->
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource GreenGlowBrush}"
+                    Opacity="0.22" Radius="18" Offset="0,6"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Заполненная «пилюля» (Search) -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="HeightRequest"   Value="44"/>
+        <Setter Property="CornerRadius"    Value="12"/>
+        <Setter Property="Padding"         Value="18,10"/>
+        <Setter Property="TextColor"       Value="White"/>
+        <Setter Property="FontAttributes"  Value="None"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource GlowBrush}" Opacity="0.45" Radius="18" Offset="0,6"/>
+            </Setter.Value>
+        </Setter>
+        <!-- никаких Scale -->
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <Setter.Value>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryLight}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Аккуратный Entry -->
+    <Style x:Key="SolidEntry" TargetType="Entry">
+        <Setter Property="HeightRequest" Value="44"/>
+        <Setter Property="BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource LightSurfaceColor},
+                                     Dark={StaticResource DarkSurfaceColor}}"/>
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                     Dark={StaticResource DarkTextPrimary}}"/>
+        <Setter Property="Margin" Value="0,6,0,0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Keyboard" Value="Default"/>
+    </Style>
+
+    <!-- Базовый стиль Button -->
+    <Style TargetType="Button">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="MinimumHeightRequest" Value="44"/>
+    </Style>
+
+    <!-- Глобальный Page/Shell -->
+    <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}"/>
+    </Style>
+
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}"/>
+        <Setter Property="Shell.ForegroundColor"
+            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
+        <Setter Property="Shell.TitleColor"
+            Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
+        <Setter Property="Shell.DisabledColor"
+            Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}"/>
+        <Setter Property="Shell.UnselectedColor"
+            Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray200}}"/>
+        <Setter Property="Shell.NavBarHasShadow" Value="False"/>
+        <Setter Property="Shell.TabBarBackgroundColor"
+            Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"/>
+        <Setter Property="Shell.TabBarForegroundColor"
+            Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}"/>
+        <Setter Property="Shell.TabBarTitleColor"
+            Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}"/>
+        <Setter Property="Shell.TabBarUnselectedColor"
+            Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}"/>
+    </Style>
+
+    <!-- Стеклянный чип -->
+    <Style x:Key="ChipButton" TargetType="Button">
+        <Setter Property="Padding" Value="14,8"/>
+        <Setter Property="Margin"  Value="6,6,0,0"/>
+        <Setter Property="CornerRadius" Value="18"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="BorderWidth" Value="1"/>
+        <Setter Property="BorderColor"
+            Value="{AppThemeBinding Light={StaticResource LightCardStroke},
+                                     Dark={StaticResource DarkCardStroke}}"/>
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                     Dark={StaticResource DarkTextPrimary}}"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource GlowBrush}" Opacity="0.15" Radius="10" Offset="0,4"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Стеклянная кнопка (Use template) с постоянным зелёным свечением -->
+    <Style x:Key="UseTemplateButton" TargetType="Button">
+        <Setter Property="HeightRequest" Value="44"/>
+        <Setter Property="MinimumWidthRequest" Value="140"/>
+        <Setter Property="Padding" Value="18,10"/>
+        <Setter Property="CornerRadius" Value="22"/>
+
+        <!-- прозрачная, только контур -->
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                     Dark={StaticResource DarkTextPrimary}}"/>
+        <Setter Property="BorderWidth" Value="1"/>
+        <Setter Property="BorderColor"
+            Value="{AppThemeBinding Light={StaticResource GlassBorderLight},
+                                     Dark={StaticResource GlassBorderDark}}"/>
+
+        <!-- постоянное мягкое зелёное свечение -->
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource GreenGlowBrush}" Opacity="0.36" Radius="20" Offset="0,10"/>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Без масштабирования -->
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <Setter.Value>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryTint}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity" Value="0.6"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- =================== KPI: компактная карточка =================== -->
+    <Style x:Key="KpiCardStyle" TargetType="Border" BasedOn="{StaticResource CardStyle}">
+        <!-- делаем карточку компактнее -->
+        <Setter Property="Padding" Value="14"/>
+        <Setter Property="Margin"  Value="0,8"/>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Stroke"
+            Value="{AppThemeBinding Light={StaticResource GlassBorderLight},
+                                     Dark={StaticResource GlassBorderDark}}"/>
+        <!-- по умолчанию без свечения -->
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource GreenGlowBrush}" Opacity="0" Radius="18" Offset="0,6"/>
+            </Setter.Value>
+        </Setter>
+
+        <!-- зелёная окантовка только при наведении -->
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <Setter.Value>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="Stroke" Value="{StaticResource Primary}"/>
+                                <Setter Property="Shadow">
+                                    <Setter.Value>
+                                        <Shadow Brush="{StaticResource GreenGlowBrush}" Opacity="0.35" Radius="20" Offset="0,8"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Stroke" Value="{StaticResource PrimaryDark}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- подписи/значения KPI (необязательно, но удобно) -->
+    <Style x:Key="KpiTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Opacity"  Value="0.8"/>
+    </Style>
+    <Style x:Key="KpiValue" TargetType="Label">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+    </Style>
+
+    <!-- ============ Ряд (карточка) в списке автоматизаций ============ -->
+    <Style x:Key="AutomationRowCard" TargetType="Border" BasedOn="{StaticResource KpiCardStyle}">
+        <!-- чуть иные отступы для строки -->
+        <Setter Property="Padding" Value="12"/>
+        <Setter Property="Margin"  Value="0,6"/>
+    </Style>
+
+    <!-- Небольшая «пилюля»-кнопка для действий в строке -->
+    <Style x:Key="RowActionButton" TargetType="Button">
+        <Setter Property="HeightRequest" Value="36"/>
+        <Setter Property="Padding" Value="12,6"/>
+        <Setter Property="CornerRadius" Value="18"/>
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="TextColor"
+            Value="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                     Dark={StaticResource DarkTextPrimary}}"/>
+        <Setter Property="BorderWidth" Value="1"/>
+        <Setter Property="BorderColor"
+            Value="{AppThemeBinding Light={StaticResource GlassBorderLight},
+                                     Dark={StaticResource GlassBorderDark}}"/>
+
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <Setter.Value>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+                                <Setter Property="Shadow">
+                                    <Setter.Value>
+                                        <Shadow Brush="{StaticResource GreenGlowBrush}" Opacity="0.30" Radius="14" Offset="0,6"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BorderColor" Value="{StaticResource PrimaryDark}"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

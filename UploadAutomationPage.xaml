@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Botana.UploadAutomationPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Upload automation"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBgColor},
+                                              Dark={StaticResource DarkBgColor}}">
+
+    <!-- Back в верхнем баре -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+        Order="Primary"
+        Priority="0"
+        IconImageSource="{AppThemeBinding Light=arrow_back_dark.png, Dark=arrow_back_light.png}"
+        AutomationProperties.Name="Back"
+        Clicked="OnBackClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <Label Text="Upload automation"
+             FontSize="22"
+             TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary},
+                                          Dark={StaticResource DarkTextPrimary}}"/>
+
+            <!-- NEW: Name -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Name" Style="{StaticResource SecondaryText}" />
+                <Entry x:Name="NameEntry"
+               Style="{StaticResource SolidEntry}"
+               Placeholder="Automation name"/>
+            </VerticalStackLayout>
+
+            <!-- NEW: Source URL (опционально) -->
+            <VerticalStackLayout Spacing="6">
+                <Label Text="Source URL (optional)" Style="{StaticResource SecondaryText}" />
+                <Entry x:Name="SourceUrlEntry"
+               Style="{StaticResource SolidEntry}"
+               Keyboard="Url"
+               Placeholder="https://..." />
+            </VerticalStackLayout>
+
+            <!-- при желании: выбор файла -->
+            <!--
+      <Button Text="Choose file"
+              Style="{StaticResource UseTemplateButton}"
+              Clicked="OnChooseFileClicked" />
+      -->
+
+            <!-- NEW: Кнопка загрузки -->
+            <Button Text="Upload"
+              Style="{StaticResource PrimaryButton}"
+              Clicked="OnUploadClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
