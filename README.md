@@ -8,17 +8,17 @@ Botana ist eine Desktop-Anwendung, über die kleine und mittlere Unternehmen (KM
 
 ## Screenshots
 
-### Startansicht – Automations-Marktplatz
-
-![Startansicht](docs/screenshots/start.png)
-
 ### Login & Authentifizierung
 
 ![Login](docs/screenshots/login.png)
 
-### My Automations – eigene Workflows verwalten
+### Registrierung – neues Benutzerkonto
 
-![My Automations](docs/screenshots/myautomations.png)
+![Registrierung](docs/screenshots/register.png)
+
+### Einstellungen – Profil & Benachrichtigungen
+
+![Einstellungen](docs/screenshots/settings.png)
 
 ### Explore – Katalog mit Kategoriefilter
 
